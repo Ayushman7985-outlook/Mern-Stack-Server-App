@@ -1,188 +1,192 @@
-# Node.js + MongoDB + Mongoose Backend App (CRUD + Auth + JWT)
+# MERN Stack Book Management System — Backend
 
-This project demonstrates how to build a **production-ready backend REST API** using **Node.js**, **Express**, **MongoDB**, and **Mongoose**, following **industry-standard MVC architecture**.
+A REST API backend for a Book Management System built using **Node.js, Express.js, MongoDB, and Mongoose**.
 
-It is designed to work seamlessly with a React frontend and supports authentication, authorization, pagination, and search.
+This backend provides user registration, login, JWT-based authentication, protected book management operations, pagination, and search functionality. It is designed to integrate with a React frontend.
 
----
+## Features
 
-## 🚀 Features
+- User registration and login
+- JWT-based authentication and authorization
+- Password hashing using bcrypt
+- Create, read, update, and delete (CRUD) operations for books
+- Pagination and search functionality
+- Protected API routes using authentication middleware
+- MongoDB local and MongoDB Atlas support
+- REST API integration with a React frontend
 
-- User Authentication (Register & Login)
-- JWT-based Authorization
-- Full CRUD for Books
-- Pagination & Search (Backend-ready)
-- Protected Routes using Middleware
-- MongoDB Local & Atlas Support
-- Frontend-ready REST APIs
+## Technology Stack
 
----
+| Technology | Purpose |
+|---|---|
+| Node.js | JavaScript runtime |
+| Express.js | Backend framework |
+| MongoDB | NoSQL database |
+| Mongoose | MongoDB object modeling |
+| JWT | Authentication and authorization |
+| bcryptjs | Password hashing |
+| dotenv | Environment variable management |
+| CORS | Cross-origin resource sharing |
 
-## 📁 Project Structure````
+## Project Structure
+
 ```text
-my-node-app/
+mern_stack_server_app/
 │
 ├── controllers/
-│   ├── bookController.js     # Book CRUD, pagination, search
-│   └── authController.js     # Register & Login logic
+│   ├── bookController.js
+│   └── authController.js
 │
 ├── routes/
-│   ├── bookRoutes.js         # Book APIs
-│   └── authRoutes.js         # Auth APIs
+│   ├── bookRoutes.js
+│   └── authRoutes.js
 │
 ├── models/
-│   ├── Book.js               # Book schema
-│   └── User.js               # User schema
+│   ├── Book.js
+│   └── User.js
 │
 ├── middleware/
-│   └── authMiddleware.js     # JWT verification
+│   └── authMiddleware.js
 │
-├── seed.js                   # One-time DB seeding
-├── server.js                 # App entry point
-├── .env                      # Environment variables
+├── seed.js
+├── server.js
 ├── package.json
+├── package-lock.json
+├── .gitignore
 └── README.md
 ```
 
----
+*Note: This structure describes the main application files. Individual files may vary depending on the repository version.*
 
-## 🧱 MVC Architecture Explained
+## Architecture
 
-### controllers/
-Handles business logic only.
-- Validates input
-- Communicates with models
-- Sends responses
+The application follows an MVC-inspired structure.
 
-### routes/
-Maps HTTP routes to controller functions.
-- No business logic here
+### Controllers
+Handle application logic, process requests, interact with database models, and return API responses.
 
-### models/
-Defines MongoDB schemas using Mongoose.
-- Validation
-- Structure enforcement
+### Routes
+Define API endpoints and connect incoming requests to their corresponding controller functions.
 
-### middleware/
-Used for JWT authentication.
-- Protects POST, PUT, DELETE routes
+### Models
+Define MongoDB document structures and schemas using Mongoose.
 
----
+### Middleware
+Handles JWT verification and protects routes that require an authenticated user.
 
-## ⚙️ Environment Variables (.env)
+## Getting Started
 
-### Local MongoDB
-MONGO_URL=mongodb://localhost:27017/bookdb  
-PORT=8800  
-JWT_SECRET=supersecretkey  
+### Prerequisites
 
-### MongoDB Atlas
-MONGO_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/bookdb  
-PORT=8800  
-JWT_SECRET=supersecretkey  
+Make sure you have the following installed:
 
-⚠️ Never commit `.env` to GitHub
+- Node.js (v16 or later)
+- npm
+- MongoDB local installation or a MongoDB Atlas account
+- Postman (optional, for API testing)
 
----
+### 1. Clone the Repository
 
-## 🔄 Request Flow
+```bash
+git clone https://github.com/Ayushman7985-outlook/Mern-Stack-Server-App.git
+```
 
-Client (Frontend / Postman)  
-→ Express Server  
-→ Routes  
-→ Controllers  
-→ Models  
-→ MongoDB  
-→ JSON Response  
+### 2. Navigate to the Project Directory
 
----
+```bash
+cd Mern-Stack-Server-App
+```
 
-## 🧪 Prerequisites
-
-- Node.js v16+
-- MongoDB (Local or Atlas)
-- Postman (optional)
-
----
-
-## 📦 Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 npm install
 ```
 
-Installs:
-- express
-- mongoose
-- dotenv
-- cors
-- bcryptjs
-- jsonwebtoken
+### 4. Configure Environment Variables
 
----
+Create a `.env` file in the project root directory.
 
-## ▶️ Run the Project
+For a local MongoDB database:
 
-### Step 1: Seed Database (Run Once)
+```env
+MONGO_URL=mongodb://localhost:27017/bookdb
+PORT=8800
+JWT_SECRET=your_secret_key
+```
+
+For MongoDB Atlas:
+
+```env
+MONGO_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/bookdb
+PORT=8800
+JWT_SECRET=your_secret_key
+```
+
+Replace the placeholders with your actual database credentials and a secure JWT secret.
+
+**Important:** Never commit your `.env` file or expose database credentials and JWT secrets publicly.
+
+### 5. Seed the Database
+
+If you want to populate the database with the sample records provided by the project, run:
+
 ```bash
 node seed.js
 ```
 
-### Step 2: Start Server
+Run this only when you need the initial sample data.
+
+### 6. Start the Server
+
 ```bash
 node server.js
 ```
 
-Expected output:
-Server running on port 8800  
-Connected to MongoDB  
----
-### Live Deployment Link: 
-```bash
-https://nischalaremanda-mern-crud-app.onrender.com
-```
+The backend runs on the configured port (8800 by default).
 
----
+## API Documentation
 
-## 🔐 Authentication APIs
+The following endpoints describe the main authentication and book-management operations.
 
-### Register
-POST /api/auth/register
+### Authentication APIs
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/auth/register` | Register a new user |
+| POST | `/api/auth/login` | Authenticate a user |
+
+**Registration request:**
 
 ```json
 {
-  "username": "nischal",
-  "email": "nischal@test.com",
+  "username": "example",
+  "email": "example@test.com",
   "password": "password123"
 }
 ```
 
-### Login
-POST /api/auth/login
+**Login request:**
 
-Response:
 ```json
 {
-  "token": "JWT_TOKEN",
-  "user": {
-    "id": "...",
-    "username": "nischal",
-    "email": "nischal@test.com"
-  }
+  "email": "example@test.com",
+  "password": "password123"
 }
 ```
 
----
+A successful login returns an authentication token and user information.
 
-## 📚 Book APIs
+### Book Management APIs
 
-### Get Books (Public, Pagination + Search)
-GET /books?page=1&limit=5&search=clean
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/books?page=1&limit=5&search=clean` | Retrieve books with pagination and search |
+| POST | `/books` | Create a new book |
+| PUT | `/books/:id` | Update an existing book |
+| DELETE | `/books/:id` | Delete a book |
 
-### Create Book (Protected)
-POST /books  
-Headers:
-Authorization: Bearer <JWT_TOKEN>
+**Create book request:**
 
 ```json
 {
@@ -192,40 +196,70 @@ Authorization: Bearer <JWT_TOKEN>
 }
 ```
 
-### Update Book (Protected)
-PUT /books/:id  
+**Authentication:** Protected book-management endpoints require a valid JWT token in the request header.
 
-### Delete Book (Protected)
-DELETE /books/:id  
+```http
+Authorization: Bearer <JWT_TOKEN>
+```
 
----
+## Application Workflow
 
-## ❌ Common Errors
+```text
+React Frontend / Postman
+          |
+          v
+     Express Server
+          |
+          v
+       API Routes
+          |
+          v
+      Controllers
+          |
+          v
+        Models
+          |
+          v
+       MongoDB
+          |
+          v
+     JSON Response
+```
 
-- Missing JWT token
-- Invalid / expired token
-- MongoDB connection issues
-- Wrong route prefix
-- IP not whitelisted in Atlas
+## Common Issues
 
----
+- **MongoDB connection error:** Verify the database URL and connection status.
+- **Authentication failure:** Check whether the JWT token is valid and has not expired.
+- **Missing environment variables:** Ensure the `.env` file exists and contains the required values.
+- **MongoDB Atlas connection issue:** Check whether your IP address is allowed in the Atlas network access settings.
+- **API route errors:** Verify the endpoint and route prefix used by the frontend.
 
-## 🎯 Learning Outcomes
+## Learning Outcomes
 
-- MVC architecture in Node.js
-- REST API design
-- JWT authentication
-- Pagination & search APIs
-- Secure backend development
-- Frontend-backend integration
+This project demonstrates practical implementation of:
 
----
+- Backend development using Node.js and Express.js
+- REST API design and development
+- MongoDB database integration with Mongoose
+- JWT authentication and route protection
+- Password hashing and authentication workflows
+- CRUD operations
+- Pagination and search functionality
+- Frontend and backend integration
 
-## 👤 Author
+## Live Application
 
-**Nischal Aremanda**  
-Backend & Full‑Stack Developer
+The original project includes a deployed application:
 
+[View Live Application](https://nischalaremanda-mern-crud-app.onrender.com)
 
+## Author & Acknowledgement
 
+**Original Author: Nischal Aremanda**
 
+Backend and Full-Stack Developer
+
+Original backend repository:  
+https://github.com/nischalare/mern_stack_server_app
+
+This repository is a personal copy of the original backend project. Credit is retained for the original implementation and project structure.
